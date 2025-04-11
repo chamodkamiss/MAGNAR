@@ -14,13 +14,12 @@
 */
 
 #include <iostream>
+#include <stdio.h>
 #include <cmath>
 #include <string>
 #include <array>
 #include <vector>
 #include <ctime>
-#include <iomanip>
-
 
 // Define the Sensor struct
 struct Sensor {
@@ -332,22 +331,22 @@ int main() {
                         }
                         std::cout << "Sum of the array: " << totalSum << std::endl << std::endl;
                         
-                        // Display column headers
-                        std::cout << "    ";
+                        // Display column headers using printf
+                        printf("    ");
                         for (int j = 0; j < 5; j++) {
-                            std::cout << std::setw(5) << "Col" + std::to_string(j);
+                            printf("%5s", ("Col" + std::to_string(j)).c_str());
                         }
-                        std::cout << std::setw(12) << "Row Sum" << std::setw(12) << "Even Count" << std::endl;
+                        printf("%12s%12s\n", "Row Sum", "Even Count");
                         
                         // Display the array data with row properties
                         for (int i = 0; i < 5; i++) {
-                            std::cout << "Row" << i << " ";
+                            printf("Row%d ", i);
                             
                             int rowSum = 0;
                             int evenCount = 0;
                             
                             for (int j = 0; j < 5; j++) {
-                                std::cout << std::setw(5) << (*teamArray)[i][j];
+                                printf("%5d", (*teamArray)[i][j]);
                                 rowSum += (*teamArray)[i][j];
                                 
                                 if ((*teamArray)[i][j] % 2 == 0) {
@@ -355,11 +354,11 @@ int main() {
                                 }
                             }
                             
-                            std::cout << std::setw(12) << rowSum << std::setw(12) << evenCount << std::endl;
+                            printf("%12d%12d\n", rowSum, evenCount);
                         }
                         
                         // Display column properties
-                        std::cout << "Max  ";
+                        printf("Max  ");
                         for (int j = 0; j < 5; j++) {
                             int colMax = (*teamArray)[0][j];
                             for (int i = 1; i < 5; i++) {
@@ -367,9 +366,9 @@ int main() {
                                     colMax = (*teamArray)[i][j];
                                 }
                             }
-                            std::cout << std::setw(5) << colMax;
+                            printf("%5d", colMax);
                         }
-                        std::cout << std::endl;
+                        printf("\n");
                     } else {
                         std::cout << "Invalid team choice. Returning to main menu." << std::endl;
                     }
@@ -430,22 +429,22 @@ int main() {
                         }
                         std::cout << "Sum of the array: " << totalSum << std::endl << std::endl;
                         
-                        // Display column headers
-                        std::cout << "    ";
+                        // Display column headers using printf
+                        printf("    ");
                         for (int j = 0; j < 5; j++) {
-                            std::cout << std::setw(5) << "Col" + std::to_string(j);
+                            printf("%5s", ("Col" + std::to_string(j)).c_str());
                         }
-                        std::cout << std::setw(12) << "Row Sum" << std::setw(12) << "Even Count" << std::endl;
+                        printf("%12s%12s\n", "Row Sum", "Even Count");
                         
                         // Display the array data with row properties
                         for (int i = 0; i < 8; i++) {
-                            std::cout << "Row" << i << " ";
+                            printf("Row%d ", i);
                             
                             int rowSum = 0;
                             int evenCount = 0;
                             
                             for (int j = 0; j < 5; j++) {
-                                std::cout << std::setw(5) << (*teamArray)[i][j];
+                                printf("%5d", (*teamArray)[i][j]);
                                 rowSum += (*teamArray)[i][j];
                                 
                                 if ((*teamArray)[i][j] % 2 == 0) {
@@ -453,11 +452,11 @@ int main() {
                                 }
                             }
                             
-                            std::cout << std::setw(12) << rowSum << std::setw(12) << evenCount << std::endl;
+                            printf("%12d%12d\n", rowSum, evenCount);
                         }
                         
                         // Display column properties
-                        std::cout << "Max  ";
+                        printf("Max  ");
                         for (int j = 0; j < 5; j++) {
                             int colMax = (*teamArray)[0][j];
                             for (int i = 1; i < 8; i++) {
@@ -465,9 +464,9 @@ int main() {
                                     colMax = (*teamArray)[i][j];
                                 }
                             }
-                            std::cout << std::setw(5) << colMax;
+                            printf("%5d", colMax);
                         }
-                        std::cout << std::endl;
+                        printf("\n");
                     } else {
                         std::cout << "Invalid team choice. Returning to main menu." << std::endl;
                     }
@@ -547,18 +546,21 @@ int main() {
 // Function to display all sensor data
 void displaySensorData(const std::vector<struct Sensor>& sensors) {
     std::cout << "\n=== SPACECRAFT SENSORS ===\n" << std::endl;
-    std::cout << std::left << std::setw(20) << "Sensor Name" 
-              << std::setw(15) << "Data Type" 
-              << std::setw(15) << "Accuracy" 
-              << std::setw(10) << "Range" 
-              << "Status" << std::endl;
-    std::cout << std::string(70, '-') << std::endl;
     
+    // Print table headers using printf for formatting
+    printf("%-20s %-15s %-15s %-10s %s\n", 
+           "Sensor Name", "Data Type", "Accuracy", "Range", "Status");
+    
+    // Print a divider line
+    printf("%s\n", std::string(70, '-').c_str());
+    
+    // Print each sensor's data
     for (const auto& sensor : sensors) {
-        std::cout << std::left << std::setw(20) << sensor.name 
-                  << std::setw(15) << sensor.dataType 
-                  << std::setw(15) << sensor.accuracy 
-                  << std::setw(10) << sensor.range 
-                  << (sensor.status ? "Active" : "Inactive") << std::endl;
+        printf("%-20s %-15s %-15.1f %-10d %s\n", 
+               sensor.name.c_str(), 
+               sensor.dataType.c_str(), 
+               sensor.accuracy, 
+               sensor.range, 
+               (sensor.status ? "Active" : "Inactive"));
     }
 }
